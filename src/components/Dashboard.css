@@ -1,0 +1,15 @@
+.status-item {
+  display: flex;
+  justify-content: space-between;
+  flex: 1;
+  background-color: yellowgreen;
+  margin: 10px;
+  padding: 7px;
+}
+
+/* Media query for small screens */
+@media (max-width: 768px) {
+  .status-item {
+    flex: 0 0 calc(100% / 2 - 20px);
+  }
+}

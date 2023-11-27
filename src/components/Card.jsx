@@ -1,6 +1,8 @@
 import { Circle, CircleUserRound } from "lucide-react";
 import { useEffect, useState } from "react";
 
+import "./Card.css";
+
 import { getPriorityIcon, getUserStatusIcon } from "../helper/Icon";
 
 function Card(props) {
@@ -51,7 +53,7 @@ function Card(props) {
           <div
             style={{ fontSize: "12px", fontWeight: "500", marginBottom: "8px" }}
           >
-            {props.title}
+            <span className="cardTitle">{props.title}</span>
           </div>
         </div>
 

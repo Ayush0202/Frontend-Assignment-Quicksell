@@ -97,7 +97,6 @@ function Dashboard(props) {
 
   return (
     <>
-      <h1>{width}</h1>
       <div
         style={{
           display: "flex",
@@ -112,7 +111,7 @@ function Dashboard(props) {
             style={{
               backgroundColor: "whitesmoke",
               margin: "10px",
-              width: `${width / 5}px`,
+              width: "50vw",
               padding: "10px",
             }}
           >
@@ -129,18 +128,38 @@ function Dashboard(props) {
                 >
                   {(props.grouping === "user" ||
                     props.grouping === "status") && (
-                    <span style={{ fontSize: "100%", fontWeight: "500" }}>
+                    <span
+                      style={{
+                        fontWeight: "500",
+                        fontSize: "100%",
+                        display: "block",
+                        whiteSpace: "nowrap",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                      }}
+                    >
                       {key}
                     </span>
                   )}
 
                   {props.grouping === "priority" && (
-                    <span style={{ fontSize: "100%", fontWeight: "500" }}>
+                    <span
+                      style={{
+                        fontSize: "100%",
+                        fontWeight: "500",
+                        display: "block",
+                        whiteSpace: "nowrap",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                      }}
+                    >
                       {getPriorityName(key)}
                     </span>
                   )}
                 </div>
-                <div style={{ marginTop: "0px" }}>{dict[key].length}</div>
+                <div style={{ marginTop: "0px", color: "gray" }}>
+                  {dict[key].length}
+                </div>
               </div>
 
               <div style={{ display: "flex", justifyContent: "left" }}>

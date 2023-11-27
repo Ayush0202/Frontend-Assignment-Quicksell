@@ -1,7 +1,7 @@
 import { Circle, CircleUserRound } from "lucide-react";
 import { useEffect, useState } from "react";
 
-import { getUserStatusIcon, getPriorityIcon } from "../helper/Icon";
+import { getPriorityIcon, getUserStatusIcon } from "../helper/Icon";
 
 function Card(props) {
   const [width, setWidth] = useState(window.innerWidth);
@@ -42,7 +42,7 @@ function Card(props) {
           )}
         </div>
         <div style={{ display: "flex" }}>
-          {props.grouping === "user" && (
+          {(props.grouping === "user" || props.grouping === "priority") && (
             <div style={{ marginRight: "3px" }}>
               {" "}
               {getUserStatusIcon(props.status)}{" "}

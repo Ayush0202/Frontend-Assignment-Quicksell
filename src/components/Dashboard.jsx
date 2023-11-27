@@ -41,7 +41,7 @@ function Dashboard(props) {
     };
 
     fetchData();
-  }, [props.grouping]);
+  }, [props.grouping, props.ordering]);
 
   // combining the two data
   const combinedData = ticket.map((ticketItem) => {
@@ -53,20 +53,6 @@ function Dashboard(props) {
       user: correspondingUser,
     };
   });
-
-  for (let i = 0; i < combinedData.length; i++) {
-    if (combinedData[i].priority === 4) {
-      combinedData[i].priorityStatus = "Urgent";
-    } else if (combinedData[i].priority === 3) {
-      combinedData[i].priorityStatus = "High";
-    } else if (combinedData[i].priority === 2) {
-      combinedData[i].priorityStatus = "Medium";
-    } else if (combinedData[i].priority === 1) {
-      combinedData[i].priorityStatus = "Low";
-    } else if (combinedData[i].priority === 0) {
-      combinedData[i].priorityStatus = "No Priority";
-    }
-  }
 
   const groupByAttribute = props.grouping;
 
@@ -95,6 +81,16 @@ function Dashboard(props) {
     if (!dict["Canceled"]) {
       dict["Canceled"] = [];
     }
+  }
+
+  if (props.ordering === "priority") {
+    Object.keys(dict).forEach((key) => {
+      dict[key].sort((a, b) => b.priority - a.priority);
+    });
+  } else if (props.ordering === "title") {
+    Object.keys(dict).forEach((key) => {
+      dict[key].sort((a, b) => a.title.localeCompare(b.title));
+    });
   }
 
   console.log(dict);

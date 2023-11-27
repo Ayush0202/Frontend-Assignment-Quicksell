@@ -5,7 +5,7 @@ import { FiPlus } from "react-icons/fi";
 import Card from "./Card";
 import "./Dashboard.css";
 
-import { getHeadingIcon } from "../helper/Icon";
+import { getHeadingIcon, getPriorityName } from "../helper/Icon";
 
 function Dashboard(props) {
   const [width, setWidth] = useState(window.innerWidth);
@@ -131,9 +131,18 @@ function Dashboard(props) {
                     marginLeft: "7px",
                   }}
                 >
-                  <span style={{ fontSize: "100%", fontWeight: "500" }}>
-                    {key}
-                  </span>
+                  {(props.grouping === "user" ||
+                    props.grouping === "status") && (
+                    <span style={{ fontSize: "100%", fontWeight: "500" }}>
+                      {key}
+                    </span>
+                  )}
+
+                  {props.grouping === "priority" && (
+                    <span style={{ fontSize: "100%", fontWeight: "500" }}>
+                      {getPriorityName(key)}
+                    </span>
+                  )}
                 </div>
                 <div style={{ marginTop: "0px" }}>{dict[key].length}</div>
               </div>

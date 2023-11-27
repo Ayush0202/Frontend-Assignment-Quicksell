@@ -25,6 +25,18 @@ export const getHeadingIcon = (prop, key) => {
     }
   } else if (prop === "user") {
     return <CircleUserRound size={20} />;
+  } else if (prop === "priority") {
+    if (key === "4") {
+      return <BsExclamationSquareFill />;
+    } else if (key === "3") {
+      return <LuSignalHigh />;
+    } else if (key === "2") {
+      return <LuSignalMedium />;
+    } else if (key === "1") {
+      return <LuSignalLow />;
+    } else if (key === "0") {
+      return <BsThreeDots />;
+    }
   }
 };
 
@@ -53,5 +65,19 @@ export const getPriorityIcon = (props) => {
     return <LuSignalLow />;
   } else if (props === 0) {
     return <BsThreeDots />;
+  }
+};
+
+export const getPriorityName = (key) => {
+  if (key === "4") {
+    return "Urgent";
+  } else if (key === "3") {
+    return "High";
+  } else if (key === "2") {
+    return "Medium";
+  } else if (key === "1") {
+    return "Low";
+  } else if (key === "0") {
+    return "No Priority";
   }
 };

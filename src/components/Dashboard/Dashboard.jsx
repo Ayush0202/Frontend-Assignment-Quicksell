@@ -2,10 +2,10 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { BsThreeDots } from "react-icons/bs";
 import { FiPlus } from "react-icons/fi";
-import Card from "./Card";
+import Card from "../Card/Card";
 import "./Dashboard.css";
 
-import { getHeadingIcon, getPriorityName } from "../helper/Icon";
+import { getHeadingIcon, getPriorityName } from "../../helper/Icon";
 
 function Dashboard(props) {
   const [width, setWidth] = useState(window.innerWidth);
@@ -21,7 +21,6 @@ function Dashboard(props) {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
-
   const [ticket, setTicket] = useState([]);
   const [users, setUsers] = useState([]);
 

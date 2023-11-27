@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 
 import "./Card.css";
 
-import { getPriorityIcon, getUserStatusIcon } from "../helper/Icon";
+import { getPriorityIcon, getUserStatusIcon } from "../../helper/Icon";
 
 function Card(props) {
   const [width, setWidth] = useState(window.innerWidth);

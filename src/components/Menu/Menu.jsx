@@ -1,6 +1,6 @@
 import { ChevronDown, SlidersHorizontal } from "lucide-react";
 import React, { useState } from "react";
-import Dashboard from "./Dashboard";
+import Dashboard from "../Dashboard/Dashboard";
 
 const Menu = () => {
   const [isMenuVisible, setMenuVisibility] = useState(false);

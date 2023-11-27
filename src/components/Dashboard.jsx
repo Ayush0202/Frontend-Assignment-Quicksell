@@ -1,6 +1,12 @@
 import axios from "axios";
-import { GripHorizontal, Plus, SignalMedium } from "lucide-react";
+import { CircleUserRound } from "lucide-react";
 import React, { useEffect, useState } from "react";
+import { BsThreeDots } from "react-icons/bs";
+import { FaCheckCircle, FaRegCircle } from "react-icons/fa";
+import { FiPlus } from "react-icons/fi";
+import { LuCircleDashed } from "react-icons/lu";
+import { MdCancel } from "react-icons/md";
+import { TbProgressCheck } from "react-icons/tb";
 import Card from "./Card";
 import "./Dashboard.css";
 
@@ -51,6 +57,20 @@ function Dashboard(props) {
     };
   });
 
+  for (let i = 0; i < combinedData.length; i++) {
+    if (combinedData[i].priority === 4) {
+      combinedData[i].priorityStatus = "Urgent";
+    } else if (combinedData[i].priority === 3) {
+      combinedData[i].priorityStatus = "High";
+    } else if (combinedData[i].priority === 2) {
+      combinedData[i].priorityStatus = "Medium";
+    } else if (combinedData[i].priority === 1) {
+      combinedData[i].priorityStatus = "Low";
+    } else if (combinedData[i].priority === 0) {
+      combinedData[i].priorityStatus = "No Priority";
+    }
+  }
+
   const groupByAttribute = props.grouping;
 
   var dict = {};
@@ -71,7 +91,34 @@ function Dashboard(props) {
     }
   }
 
+  if (props.grouping === "status") {
+    if (!dict["Done"]) {
+      dict["Done"] = [];
+    }
+    if (!dict["Canceled"]) {
+      dict["Canceled"] = [];
+    }
+  }
+
   console.log(dict);
+
+  const getHeadingIcon = (key) => {
+    if (props.grouping === "status") {
+      if (key === "Todo") {
+        return <FaRegCircle />;
+      } else if (key === "Canceled") {
+        return <MdCancel />;
+      } else if (key === "In progress") {
+        return <TbProgressCheck />;
+      } else if (key === "Backlog") {
+        return <LuCircleDashed />;
+      } else if (key === "Done") {
+        return <FaCheckCircle />;
+      }
+    } else if (props.grouping === "user") {
+      return <CircleUserRound size={20} />;
+    }
+  };
 
   return (
     <>
@@ -96,26 +143,34 @@ function Dashboard(props) {
           >
             <div key={key} className="status-item">
               <div style={{ display: "flex", justifyContent: "space-between" }}>
-                <div style={{ marginBottom: "1px" }}>
-                  <SignalMedium size={20} />
-                </div>
+                <div style={{ marginTop: "1px" }}>{getHeadingIcon(key)}</div>
                 <div
                   style={{
-                    marginTop: "0px",
-                    marginRight: "5px",
+                    marginRight: "7px",
+                    marginLeft: "7px",
                   }}
                 >
-                  <span style={{ fontSize: "100%" }}>{key}</span>
+                  <span style={{ fontSize: "100%", fontWeight: "500" }}>
+                    {key}
+                  </span>
                 </div>
                 <div style={{ marginTop: "0px" }}>{dict[key].length}</div>
               </div>
 
-              <div style={{ display: "flex", justifyContent: "space-between" }}>
-                <div style={{ marginTop: "3px" }}>
-                  <Plus size={17} />
+              <div style={{ display: "flex", justifyContent: "left" }}>
+                <div
+                  style={{
+                    marginTop: "3px",
+                    marginRight: "7px",
+                    ...(window.innerWidth < 730 && {
+                      marginRight: "0px",
+                    }),
+                  }}
+                >
+                  <FiPlus />
                 </div>
                 <div style={{ marginTop: "3px" }}>
-                  <GripHorizontal size={17} />
+                  <BsThreeDots />
                 </div>
               </div>
             </div>
@@ -134,6 +189,8 @@ function Dashboard(props) {
                   available={value.user.available}
                   grouping={props.grouping}
                   ordering={props.ordering}
+                  statusIcon={value.statusIcon}
+                  priorityIcon={value.priorityIcon}
                 />
               </div>
             ))}

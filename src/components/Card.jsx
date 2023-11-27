@@ -1,5 +1,8 @@
 import { Circle, CircleUserRound } from "lucide-react";
 import { useEffect, useState } from "react";
+import { BsExclamationSquareFill, BsThreeDots } from "react-icons/bs";
+import { LuSignalHigh, LuSignalLow, LuSignalMedium } from "react-icons/lu";
+
 function Card(props) {
   const [width, setWidth] = useState(window.innerWidth);
 
@@ -14,6 +17,20 @@ function Card(props) {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+
+  const getPriorityIcon = () => {
+    if (props.priority === 4) {
+      return <BsExclamationSquareFill />;
+    } else if (props.priority === 3) {
+      return <LuSignalHigh />;
+    } else if (props.priority === 2) {
+      return <LuSignalMedium />;
+    } else if (props.priority === 1) {
+      return <LuSignalLow />;
+    } else if (props.priority === 0) {
+      return <BsThreeDots />;
+    }
+  };
 
   return (
     <>
@@ -58,7 +75,7 @@ function Card(props) {
               padding: "1px",
             }}
           >
-            {props.priority}
+            {getPriorityIcon()}
           </div>
 
           <div
@@ -74,7 +91,8 @@ function Card(props) {
               }),
             }}
           >
-            <Circle size={8} fill="lightgray" /> {props.tag}
+            <Circle size={8} fill="lightgray" style={{ marginLeft: "2px" }} />{" "}
+            <span style={{ color: "gray" }}>{props.tag}</span>
           </div>
         </div>
       </div>

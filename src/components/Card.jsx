@@ -32,9 +32,11 @@ function Card(props) {
           <div style={{ fontSize: "11px", marginBottom: "5px" }}>
             {props.id}
           </div>
-          <div>
-            <CircleUserRound size={20} />
-          </div>
+          {(props.grouping === "status" || props.grouping === "priority") && (
+            <div>
+              <CircleUserRound size={20} />
+            </div>
+          )}
         </div>
         <div
           style={{ fontSize: "12px", fontWeight: "500", marginBottom: "8px" }}
@@ -56,7 +58,7 @@ function Card(props) {
               padding: "1px",
             }}
           >
-            ...
+            {props.priority}
           </div>
 
           <div
@@ -66,6 +68,10 @@ function Card(props) {
               width: `${props.tag.length * 80}px`,
               borderRadius: "10%",
               padding: "1px",
+              ...(window.innerWidth < 540 && {
+                fontSize: "7px",
+                width: `${props.tag.length * 65}px`,
+              }),
             }}
           >
             <Circle size={8} fill="lightgray" /> {props.tag}

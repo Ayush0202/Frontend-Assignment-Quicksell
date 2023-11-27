@@ -75,6 +75,7 @@ function Dashboard(props) {
 
   return (
     <>
+      <h1>{width}</h1>
       <div
         style={{
           display: "flex",
@@ -131,6 +132,8 @@ function Dashboard(props) {
                   userId={value.userId}
                   userName={value.user.name}
                   available={value.user.available}
+                  grouping={props.grouping}
+                  ordering={props.ordering}
                 />
               </div>
             ))}

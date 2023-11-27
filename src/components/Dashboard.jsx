@@ -1,14 +1,11 @@
 import axios from "axios";
-import { CircleUserRound } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { BsThreeDots } from "react-icons/bs";
-import { FaCheckCircle, FaRegCircle } from "react-icons/fa";
 import { FiPlus } from "react-icons/fi";
-import { LuCircleDashed } from "react-icons/lu";
-import { MdCancel } from "react-icons/md";
-import { TbProgressCheck } from "react-icons/tb";
 import Card from "./Card";
 import "./Dashboard.css";
+
+import { getHeadingIcon } from "../helper/Icon";
 
 function Dashboard(props) {
   const [width, setWidth] = useState(window.innerWidth);
@@ -102,24 +99,6 @@ function Dashboard(props) {
 
   console.log(dict);
 
-  const getHeadingIcon = (key) => {
-    if (props.grouping === "status") {
-      if (key === "Todo") {
-        return <FaRegCircle />;
-      } else if (key === "Canceled") {
-        return <MdCancel />;
-      } else if (key === "In progress") {
-        return <TbProgressCheck />;
-      } else if (key === "Backlog") {
-        return <LuCircleDashed />;
-      } else if (key === "Done") {
-        return <FaCheckCircle />;
-      }
-    } else if (props.grouping === "user") {
-      return <CircleUserRound size={20} />;
-    }
-  };
-
   return (
     <>
       <h1>{width}</h1>
@@ -143,7 +122,9 @@ function Dashboard(props) {
           >
             <div key={key} className="status-item">
               <div style={{ display: "flex", justifyContent: "space-between" }}>
-                <div style={{ marginTop: "1px" }}>{getHeadingIcon(key)}</div>
+                <div style={{ marginTop: "1px" }}>
+                  {getHeadingIcon(props.grouping, key)}
+                </div>
                 <div
                   style={{
                     marginRight: "7px",

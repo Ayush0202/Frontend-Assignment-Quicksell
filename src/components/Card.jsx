@@ -1,7 +1,7 @@
 import { Circle, CircleUserRound } from "lucide-react";
 import { useEffect, useState } from "react";
-import { BsExclamationSquareFill, BsThreeDots } from "react-icons/bs";
-import { LuSignalHigh, LuSignalLow, LuSignalMedium } from "react-icons/lu";
+
+import { getUserStatusIcon, getPriorityIcon } from "../helper/Icon";
 
 function Card(props) {
   const [width, setWidth] = useState(window.innerWidth);
@@ -17,20 +17,6 @@ function Card(props) {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
-
-  const getPriorityIcon = () => {
-    if (props.priority === 4) {
-      return <BsExclamationSquareFill />;
-    } else if (props.priority === 3) {
-      return <LuSignalHigh />;
-    } else if (props.priority === 2) {
-      return <LuSignalMedium />;
-    } else if (props.priority === 1) {
-      return <LuSignalLow />;
-    } else if (props.priority === 0) {
-      return <BsThreeDots />;
-    }
-  };
 
   return (
     <>
@@ -55,11 +41,20 @@ function Card(props) {
             </div>
           )}
         </div>
-        <div
-          style={{ fontSize: "12px", fontWeight: "500", marginBottom: "8px" }}
-        >
-          {props.title}{" "}
+        <div style={{ display: "flex" }}>
+          {props.grouping === "user" && (
+            <div style={{ marginRight: "3px" }}>
+              {" "}
+              {getUserStatusIcon(props.status)}{" "}
+            </div>
+          )}
+          <div
+            style={{ fontSize: "12px", fontWeight: "500", marginBottom: "8px" }}
+          >
+            {props.title}
+          </div>
         </div>
+
         <div style={{ display: "flex" }}>
           <div
             style={{
@@ -75,7 +70,7 @@ function Card(props) {
               padding: "1px",
             }}
           >
-            {getPriorityIcon()}
+            {getPriorityIcon(props.priority)}
           </div>
 
           <div
